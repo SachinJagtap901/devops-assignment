@@ -75,7 +75,7 @@ pipeline {
                     kubectl set image deployment/devops-api \
                     devops-api=${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
 
-                    kubectl rollout status deployment/devops-api \ --timeout=120s
+                    kubectl rollout status deployment/devops-api  --timeout=120s
                 '''
             }
         }
