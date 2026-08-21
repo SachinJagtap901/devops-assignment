@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        DOCKERHUB_USERNAME = "sachinj6277"
         IMAGE_NAME = "devops-api"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
@@ -36,14 +37,34 @@ pipeline {
                 echo 'Building Docker image...'
 
                 sh '''
-                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                    docker build \
+                        -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} \
+                        .
                 '''
             }
         }
 
         stage('Push to Registry') {
             steps {
-                echo 'ACR push will be configured next.'
+                echo 'Pushing image to Docker Hub...'
+
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login \
+                            --username "$DOCKER_USERNAME" \
+                            --password-stdin
+
+                        docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+
+                        docker logout
+                    '''
+                }
             }
         }
 
