@@ -70,7 +70,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo 'AKS deployment will be configured next.'
+                echo 'Deploying application to Kubernetes...'
+                sh '''
+                    kubectl set image deployment/devops-api \
+                    devops-api=${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+
+                    kubectl rollout status deployment/devops-api \ --timeout=120s
+                '''
             }
         }
     }
