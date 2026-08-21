@@ -1,21 +1,6 @@
 Project Workflows
  1. Application Development Workflow
-                  Developer
-                     │
-                     ▼
-                  Codes/Uodates Flask application
-                     │
-                     ▼
-                  Write/update unit tests
-                     │
-                     ▼
-                  Run pytest locally
-                     │
-                     ▼
-                  Git commit
-                     │
-                     ▼
-                  Push to GitHub main branch
+     Developer------Codes/Uodates Flask application----Write/update unit tests----Run pytest locally---Git commit---Push to GitHub main branch
 
 2. CI/CD Workflow
                     GitHub
