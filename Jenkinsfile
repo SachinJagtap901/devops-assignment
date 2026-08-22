@@ -54,7 +54,12 @@ pipeline {
                 sh '''
                     python3 -m venv horoscope-venv
                     . horoscope-venv/bin/activate
+                    python --version
+                    pip install --upgrade pip
                     pip install -r horoscope-api/requirements.txt
+
+                    pytest --version
+
                 '''
             }
         }
