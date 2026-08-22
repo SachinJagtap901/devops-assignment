@@ -30,7 +30,7 @@ pipeline {
 
                 sh '''
                     . venv/bin/activate
-                    pytest
+                    pytest test_app.py
                 '''
             }
         }
@@ -65,7 +65,7 @@ pipeline {
 
                 sh '''
                     . horoscope-venv/bin/activate
-                    pytest horoscope-api/test_app.py
+                    pytest horoscope-api/test_horoscope.py
                 '''
             }
         }
